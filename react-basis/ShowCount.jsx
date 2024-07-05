@@ -8,7 +8,7 @@ const ShowCount = ({count}) => {
   return (
     <>
       <ParagraphDecored>You clicked here <SpanDecored>{count.number}</SpanDecored> times</ParagraphDecored>
-      <ParagraphDecored><SpanDecored>{count.text}!</SpanDecored></ParagraphDecored>
+      <ParagraphDecored><SpanDecored>Hey, you have {count.text}!</SpanDecored></ParagraphDecored>
       <ParagraphDecored>Real positive adds: <SpanDecored>{count.originNumber}</SpanDecored></ParagraphDecored>
     </>
   )
