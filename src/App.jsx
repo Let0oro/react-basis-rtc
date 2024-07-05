@@ -1,54 +1,36 @@
-import { useReducer } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
-import ShowCount from "./components/ShowCount";
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "INCREMENT":
-      return { number: state.number + 1, text: action.newText };
-    case "DECREMENT":
-      return { number: state.number - 1, text: action.newText };
-    default:
-      throw new Error(`Unknow action ${action.type}!`);
-  }
-};
+import ReactIntro from "../react-basis/ReactIntro.jsx";
 
-const init = ({ number }) => {
-  number: 0;
-};
+const maxPages = 1;
+const pagesByNumber = [ReactIntro];
 
 function App() {
-  const [state, dispatch] = useReducer(
-    reducer,
-    { number: 0, text: "Still without changes..." },
-  );
+  const [currentPageNumber, setCurrentPageNumber] = useState(0);
+  let ImportedPage;
 
-  console.log(state);
+  useEffect(() => {
+    const currentPage = localStorage.getItem("pageNumber");
+    ImportedPage = pagesByNumber[currentPage];
+  }, []);
+
+  useMemo(() => {
+    localStorage.setItem("pageNumber", currentPageNumber);
+    ImportedPage = pagesByNumber[currentPageNumber];
+  }, [currentPageNumber]);
 
   return (
     <>
-      <ShowCount count={state} />
-      <button
-        onClick={() =>
-          dispatch({
-            type: "INCREMENT",
-            newText: "Hey, you have increment the number",
-          })
-        }
-      >
-        Sumar
-      </button>
-      <button
-        onClick={() =>
-          dispatch({
-            type: "DECREMENT",
-            newText: "Hey, you have decrement the number",
-          })
-        }
-      >
-        Restar
-      </button>
-      {/* <button onClick={() => init()}>Reiniciar</button> */}
+      {ImportedPage && <ImportedPage />}
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "2rem", gap: "1rem"}}>
+        <button onClick={() => setCurrentPageNumber((current) => (current - 1 < 0) ? maxPages - 1 : current - 1)}>
+          «
+        </button>
+        <button onClick={() => setCurrentPageNumber((current) => (current + 1 >= maxPages) ? 0 : current + 1)}>
+          »
+        </button>
+      </div>
     </>
   );
 }
