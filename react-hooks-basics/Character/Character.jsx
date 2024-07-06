@@ -1,7 +1,8 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import "./Character.css";
 
 const Character = memo(({ character }) => {
+  const [isReversed, setIsReversed] = useState(false);
   const {
     id,
     image,
@@ -20,7 +21,14 @@ const Character = memo(({ character }) => {
   return (
     <section key={id} style={{ marginTop: "2rem" }}>
       <h2 style={{textDecoration: 'underline'}}>{`${name} (${gender}/${species}${!!type ? `/${type}` : ""})`}</h2>
-      <img src={image} alt={`Image of ${name}`} />
+      <img src={image} alt={`Image of ${name}`}
+      className={isReversed ? 'rev' : 'ort'} 
+      onClick={
+        () => setIsReversed(rev => !rev)
+        // ({target}) => target.style.transform = (target.style.transform.includes('180') ? 'rotateZ(0deg)' : 'rotateZ(180deg)')
+      }
+      // style={{transform: isReversed ? ('rotateZ(180deg)') : ''}}
+      />
       <p>
         {`${Intl.DateTimeFormat("es-ES").format(new Date(created))}`} (
         <a href={origin.link}>{origin.name}</a>) - {status} (

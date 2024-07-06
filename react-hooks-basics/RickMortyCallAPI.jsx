@@ -3,7 +3,7 @@ import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
 // import Character from "./Character/Character";
 
 const RickMortyCallAPI = () => {
-  const [listItems, setListItems] = useState({});
+  const [listItems, setListItems] = useState([]);
   const [apiUrl, setApiUrl] = useState(
     "https://rickandmortyapi.com/api/character"
   );
@@ -29,6 +29,8 @@ const RickMortyCallAPI = () => {
   }, [apiUrl]);
 
   const { results, info } = listItems;
+
+  console.log("next:", info?.next, "prev:", info?.prev);
 
   const listMapped = useMemo(
     () =>

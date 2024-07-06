@@ -1,0 +1,11 @@
+.rev { 
+    transform: rotateZ(180deg); 
+    border-radius: 50%;
+    transition: transform .5s ease-in-out, border-radius .2s linear
+}
+
+.ort {
+    transform: rotateZ(0deg); 
+    border-radius: 0%;
+    transition: transform .5s ease-in-out, border-radius .25s .4s linear
+}
